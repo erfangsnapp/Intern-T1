@@ -1,0 +1,14 @@
+{
+    "name": "erfan.gooneh/t1",
+    "autoload": {
+        "psr-4": {
+            "ErfanGooneh\\T1\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ErfanGooneh"
+        }
+    ],
+    "require": {}
+}

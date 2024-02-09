@@ -1,8 +1,8 @@
 <div class="log-form">
   <h2>Login to your account</h2>
-  <form>
-    <input type="text" title="username" placeholder="username" /><br>
-    <input type="password" title="username" placeholder="password" /><br>
+  <form method="POST" action="login">
+    <input name = "username" type="text" title="username" placeholder="username" /><br>
+    <input name = "password" type="password" title="password" placeholder="password" /><br>
     <button type="submit">Login</button>
   </form>
 </div>

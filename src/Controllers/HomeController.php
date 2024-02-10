@@ -5,8 +5,8 @@ use ErfanGooneh\T1\Controller;
 
 class HomeController extends Controller
 {
-    public function index($data=[]){
+    public function index(){
         if($_SERVER['REQUEST_METHOD'] === 'GET')
-            $this->render('home', $data) ;
+            $this->render('home') ;
     }
 }

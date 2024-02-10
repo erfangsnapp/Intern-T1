@@ -1,7 +1,6 @@
 <?php
 
 namespace ErfanGooneh\T1\Models; 
-use ErfanGooneh\T1\Model; 
 
 class User
 {
@@ -12,10 +11,10 @@ class User
     {
         $this->username = $username;
         $this->password = $password;
-        $this->is_admin = ($username == "admin" && $password == "admin123");
+        $this->is_admin = ($username === "admin" && $password === "admin123");
     }
     public function is_admin()
     {
-        return ($this->is_admin); 
+        return ($this->is_admin === true); 
     }
 }

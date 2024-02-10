@@ -13,7 +13,7 @@ class Router
 
     public function run()
     {
-        //echo "You are at ".$_SERVER['REQUEST_URI'] ; 
+        echo "You are at ".$_SERVER['REQUEST_URI'] ; 
         $uri = strtok($_SERVER['REQUEST_URI'], '?') ; 
         if(array_key_exists($uri, $this->routes)) {
             $controller = new $this->routes[$uri]['controller']() ;

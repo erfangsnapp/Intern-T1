@@ -2,7 +2,6 @@
 
 namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
-use ErfanGooneh\T1\Models;
 use ErfanGooneh\T1\Models\User;
 
 class LoginController extends Controller
@@ -14,7 +13,7 @@ class LoginController extends Controller
             $username = $_POST['username'];
             $password = $_POST['password'];
             $user = new User($username, $password);
-            $this->render('home', ['is_admin'=>$user->is_admin()]) ; 
+            $this->render('home', ['is_admin'=>true]) ; 
         }
     }
 }

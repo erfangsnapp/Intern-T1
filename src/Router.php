@@ -21,7 +21,7 @@ class Router
             $controller->$action();
         }
         else{
-            throw new \Exception("Not found") ; 
+            include("Views/404.php");
         }
     }
 }

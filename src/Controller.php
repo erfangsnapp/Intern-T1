@@ -8,4 +8,5 @@ class Controller
         extract($data); 
         include "Views/$view.php"; 
     }
+    
 }

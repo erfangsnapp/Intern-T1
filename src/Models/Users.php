@@ -7,7 +7,7 @@ class User
 {
     public $username;
     public $password;
-    private bool $is_admin; 
+    private $is_admin; 
     public function __construct($username, $password)
     {
         $this->username = $username;

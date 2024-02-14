@@ -8,8 +8,10 @@ use ErfanGooneh\T1\Models\Food;
 class LoginController extends Controller
 {
     public function index(){
-        if($_SERVER['REQUEST_METHOD'] === 'GET')
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
             $this->render('login') ;
+            new User("simple", "simple123");
+        }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -21,7 +23,7 @@ class LoginController extends Controller
                 $this->render('login', ['error' => 'Invalid username or password']);
             }
             else{
-                $this->render('home', ['is_admin'=>$user->is_admin()]) ; 
+                $this->render('home', ['foods'=>Food::all(), 'is_admin'=>$user->is_admin()]) ; 
             }
         }
     }

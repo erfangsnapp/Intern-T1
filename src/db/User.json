@@ -1,1 +1,1 @@
-{"admin":{"UID":"admin","username":"admin","password":"admin123","is_admin":true}}
+{"admin":{"UID":"admin","username":"admin","password":"admin123","is_admin":true},"simple":{"UID":"simple","username":"simple","password":"simple123","is_admin":false}}

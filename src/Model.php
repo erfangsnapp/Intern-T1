@@ -1,30 +1,34 @@
 <?php
 namespace ErfanGooneh\T1;
 
-class Model{
-    private $NAME; 
+class Model{ 
     protected $UID;
-    public function __construct(){
+    private static function get_model_name(){
         $str = get_called_class();
-        $this->NAME = substr($str, strrpos($str, '\\') + 1);
+        return substr($str, strrpos($str, '\\') + 1);
     }
-    public function db_path(){
-        return __DIR__ . "/db/" . $this->NAME . ".json";
+    public static function db_path(){
+        return __DIR__ . "/db/" . self::get_model_name() . ".json";
     }
-    public function all(){
-        $f = file_get_contents($this->db_path());
+    public static function all(){
+        $f = file_get_contents(self::db_path());
         $result = json_decode($f, true);
         return $result;       
     }
+    public static function get($UID){
+        $objects = self::all();
+        unset($objects["UID"]);
+        return new self(...$objects);
+    }
     public function save(){
-        $objects = $this->all() ;
+        $objects = self::all();
         $result = [];
         $props = get_object_vars($this);
         foreach ($props as $key => $value) {
             $result += [$key => $value];
         }
         $objects[$this->UID] = $result ; 
-        $f = fopen($this->db_path(), "w");
+        $f = fopen(self::db_path(), "w");
         fwrite($f, json_encode($objects));
     }
 

@@ -9,7 +9,7 @@ class Food extends Model
     public $picture;
     protected $is_in_menu; 
 
-    public function __construct($name , $price, $picture){
+    public function __construct($name , $price, $picture, $is_in_menu=false){
         $this->name = $name; 
         $this->UID = &$this->name ;
         $this->price = $price;

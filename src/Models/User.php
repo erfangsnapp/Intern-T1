@@ -8,7 +8,7 @@ class User extends Model
     public $username;
     public $password;
     protected $is_admin; 
-    public function __construct($username, $password)
+    public function __construct($username, $password, $is_admin=false)
     {
         $this->username = $username;
         $this->UID = &$this->username; 

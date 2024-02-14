@@ -16,7 +16,9 @@ class Model{
         return $result;       
     }
     public static function get($UID){
-        $object = self::all()[$UID];
+        $all = self::all();
+        if(!isset($all[$UID]))return NULL;
+        $object = $all[$UID];
         unset($object["UID"]);
         return new static(...$object);
     }

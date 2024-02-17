@@ -24,4 +24,7 @@ class Food extends Model
         $this->is_in_menu = false;
         $this->save();
     }
+    public static function validate_name($name){
+        return preg_match('/^[a-zA-Z\s\']+$/i', $name) ? $name : NULL; 
+    }
 }

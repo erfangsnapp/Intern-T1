@@ -23,10 +23,10 @@ class User extends Model
         $this->is_admin = true; 
         $this->save(); 
     }
-    public function validate(){
-        $users = User::all();
-        if(!isset($users[$this->username]))return NULL;
-        if($users[$this->username]->password !== $this->password)return false;
-        return User::get($this->username); 
+    public static function validate($username, $password){
+        $user = User::get($username);
+        if($user === NULL)return NULL;
+        if($user->password !== $password)return false;
+        return $user;
     }
 }

@@ -15,12 +15,13 @@ class Food extends Model
         $this->price = $price;
         $this->picture = $picture;
         $this->is_in_menu = false;
-        $this->save();
     }
     public function set_in_menu(){
         $this->is_in_menu = true; 
+        $this->save();
     }
     public function set_out_menu(){
         $this->is_in_menu = false;
+        $this->save();
     }
 }

@@ -14,10 +14,19 @@ class User extends Model
         $this->UID = &$this->username; 
         $this->password = $password;
         $this->is_admin = ($username === "admin" && $password === "admin123");
-        $this->save();
     }
     public function is_admin()
     {
         return ($this->is_admin === true); 
+    }
+    public function set_admin(){
+        $this->is_admin = true; 
+        $this->save(); 
+    }
+    public function validate(){
+        $users = User::all();
+        if(!isset($users[$this->username]))return NULL;
+        if($users[$this->username]->password !== $this->password)return false;
+        return User::get($this->username); 
     }
 }

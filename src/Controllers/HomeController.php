@@ -10,11 +10,14 @@ class HomeController extends Controller
             $this->render('home', ['foods'=>Food::all(), 'is_admin'=>false])  ;
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $instance = Food::get($_POST['name']);
-            $instance->is_in_menu = !$instance->is_in_menu;
-            var_dump($instance); 
-            $instance->save();
-            die();
+            if($instance === NULL)
+                http_response_code(400);
+            else if($instance->is_in_menu)
+                $instance->set_out_menu();
+            else
+                $instance->set_in_menu();
         }
+
     }
     
 }

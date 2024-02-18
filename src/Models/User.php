@@ -8,12 +8,12 @@ class User extends Model
     public $username;
     public $password;
     protected $is_admin; 
-    public function __construct($username, $password, $is_admin=false)
+    public function __construct($username, $password, $is_admin)
     {
         $this->username = $username;
         $this->UID = &$this->username; 
         $this->password = $password;
-        $this->is_admin = ($username === "admin" && $password === "admin123");
+        $this->is_admin = $is_admin;
     }
     public function is_admin()
     {
@@ -26,7 +26,7 @@ class User extends Model
     public static function validate($username, $password){
         $user = User::get($username);
         if($user === NULL)return NULL;
-        if($user->password !== $password)return false;
+        if(!password_verify($password, $user->password))return false;
         return $user;
     }
 }

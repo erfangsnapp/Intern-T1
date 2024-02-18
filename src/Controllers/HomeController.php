@@ -21,7 +21,7 @@ class HomeController extends Controller
                 $instance->set_out_menu();
             else
                 $instance->set_in_menu();
-        }
+        } 
 
     }
     

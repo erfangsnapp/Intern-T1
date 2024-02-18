@@ -1,9 +1,10 @@
 <?php
-
 namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\User;
 use ErfanGooneh\T1\Models\Food;
+
+session_start();
 
 class LoginController extends Controller
 {
@@ -22,7 +23,9 @@ class LoginController extends Controller
                 $this->render('login', ['error' => 'Invalid username or password']);
             }
             else{
-                $this->render('home', ['foods'=>Food::all(), 'is_admin'=>$status->is_admin()]);
+                $_SESSION['is_admin'] = $status->is_admin();
+                $_SESSION['username'] = $status->username;
+                header('Location: /'); 
             }
         }
     }

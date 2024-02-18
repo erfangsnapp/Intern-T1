@@ -1,8 +1,11 @@
-
+<?php
+    session_start(); 
+    $is_admin = $_SESSION['is_admin'] ?? false; 
+?>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <title>Menu</title>
   <style>
      body{

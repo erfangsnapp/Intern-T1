@@ -7,8 +7,12 @@ class HomeController extends Controller
 {
     public function index(){
         if($_SERVER['REQUEST_METHOD'] === 'GET')
-            $this->render('home', ['foods'=>Food::all(), 'is_admin'=>false])  ;
+            $this->render('home', ['foods'=>Food::all()])  ;
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($_SESSION['is_admin'] === true){
+                http_response_code(400);
+                die(); 
+            }
             $name = Food::validate_name($_POST['name']) ;
             if($name === NULL){
                 http_response_code(400);

@@ -3,11 +3,20 @@
 namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\Food;
+if(!isset($_SESSION)){
+    session_start(); 
+}
 class HomeController extends Controller
 {
     public function index(){
-        if($_SERVER['REQUEST_METHOD'] === 'GET')
-            $this->render('home', ['foods'=>Food::all()])  ;
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            if(!isset($_SESSION['username'])){
+                header('Location: /login');
+            }
+            else
+                $this->render('home', ['foods'=>Food::all()]);
+            
+        }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($_SESSION['is_admin'] === true){
                 http_response_code(400);

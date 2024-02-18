@@ -1,5 +1,6 @@
 <?php
-    session_start(); 
+    if(!isset($_SESSION))
+        session_start(); 
     $is_admin = $_SESSION['is_admin'] ?? false; 
 ?>
 <!DOCTYPE html>

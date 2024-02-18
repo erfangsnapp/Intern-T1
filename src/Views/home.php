@@ -87,6 +87,10 @@
   </style>
 </head>
 <body>
+        <form id="logoutForm" action="/logout" method="post" style="text-align:right;">
+            <input type="hidden" name="logout" value="true">
+            <button type="submit">Logout</button>
+        </form>
     <?php
     if($is_admin === true){
         echo

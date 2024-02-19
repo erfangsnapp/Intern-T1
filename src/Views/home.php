@@ -146,22 +146,21 @@
 
   <script>
     function addItem(itemName) {
-        const formData = new FormData();
-
-        // Append the data to the FormData object
-        formData.append('name', itemName);
-
-        // Create a new XMLHttpRequest object
         const xhr = new XMLHttpRequest();
-
-        // Set up the request
         xhr.open('POST', '/', true);
-
-        // Set the content type header to 'application/x-www-form-urlencoded'
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        // Send the FormData object as the request body
-        xhr.send(formData);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Item added successfully');
+                }
+            }
+        };
+
+        // Encode the item name in a URL-encoded format
+        const encodedItemName = encodeURIComponent(itemName);
+        xhr.send('name=' + encodedItemName);
     }
   </script>
 </body>

@@ -18,10 +18,11 @@ class HomeController extends Controller
             
         }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($_SESSION['is_admin'] === true){
+            if($_SESSION['is_admin'] === false){
                 http_response_code(400);
                 die(); 
             }
+            var_dump($_POST['name']); 
             $name = Food::validate_name($_POST['name']) ;
             if($name === NULL){
                 http_response_code(400);
@@ -30,7 +31,7 @@ class HomeController extends Controller
             $instance = Food::get($name);
             if($instance === NULL)
                 http_response_code(400);
-            else if($instance->is_in_menu)
+            else if($instance->is_in_menu === true)
                 $instance->set_out_menu();
             else
                 $instance->set_in_menu();

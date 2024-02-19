@@ -14,7 +14,7 @@ class Food extends Model
         $this->UID = &$this->name ;
         $this->price = $price;
         $this->picture = $picture;
-        $this->is_in_menu = false;
+        $this->is_in_menu = $is_in_menu;
     }
     public function set_in_menu(){
         $this->is_in_menu = true; 

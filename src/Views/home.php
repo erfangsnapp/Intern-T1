@@ -149,16 +149,6 @@
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    console.log('Item added successfully');
-                }
-            }
-        };
-
-        // Encode the item name in a URL-encoded format
         const encodedItemName = encodeURIComponent(itemName);
         xhr.send('name=' + encodedItemName);
         location.reload(); 

@@ -3,10 +3,7 @@
 namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\Food;
-
-if(!isset($_SESSION)){
-    session_start(); 
-}
+use ErfanGooneh\T1\Auth;
 
 class HomeController extends Controller
 {
@@ -19,7 +16,8 @@ class HomeController extends Controller
                 $this->render('home', ['foods'=>Food::all()]);
         }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($_SESSION['is_admin'] !== true){
+            $user = Auth::getUser(); 
+            if($user === NULL || $user->is_admin !== true){
                 http_response_code(401);
                 die(); 
             }

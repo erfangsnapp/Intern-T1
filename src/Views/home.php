@@ -1,8 +1,3 @@
-<?php
-    if(!isset($_SESSION))
-        session_start(); 
-    $is_admin = $_SESSION['is_admin'] ?? false; 
-?>
 <!DOCTYPE html>
 <html>
 <head>

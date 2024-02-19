@@ -3,8 +3,7 @@ namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\User;
 use ErfanGooneh\T1\Models\Food;
-
-session_start();
+use ErfanGooneh\T1\Auth;
 
 class LoginController extends Controller
 {
@@ -23,9 +22,9 @@ class LoginController extends Controller
                 $this->render('login', ['error' => 'Invalid username or password']);
             }
             else{
-                $_SESSION['is_admin'] = $status->is_admin();
-                $_SESSION['username'] = $status->username;
-                header('Location: /'); 
+                $res = [];
+                $res['token'] = Auth::generateToken(['username'=>$username]);
+                echo json_encode($res); 
             }
         }
     }

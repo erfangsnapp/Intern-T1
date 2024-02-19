@@ -161,6 +161,7 @@
         // Encode the item name in a URL-encoded format
         const encodedItemName = encodeURIComponent(itemName);
         xhr.send('name=' + encodedItemName);
+        location.reload(); 
     }
   </script>
 </body>

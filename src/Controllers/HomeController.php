@@ -17,7 +17,7 @@ class HomeController extends Controller
         }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $user = Auth::getUser(); 
-            if($user->is_admin !== true){
+            if(!$user->is_admin()){
                 http_response_code(401);
                 die(); 
             }

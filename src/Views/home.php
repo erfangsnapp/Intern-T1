@@ -146,7 +146,7 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         const encodedItemName = encodeURIComponent(itemName);
         xhr.send('name=' + encodedItemName);
-        location.reload(); 
+        //location.reload(); 
     }
   </script>
 </body>

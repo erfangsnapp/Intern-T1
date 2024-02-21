@@ -22,9 +22,10 @@ class LoginController extends Controller
                 $this->render('login', ['error' => 'Invalid username or password']);
             }
             else{
-                $res = [];
-                $res['token'] = Auth::generateToken(['username'=>$username]);
-                echo json_encode($res); 
+                $token = Auth::generateToken(['username'=>$username]);
+                setcookie('token', $token, time() + 3600 * 24, '/', '', false, true);
+                header('Location: /');
+                exit(); 
             }
         }
     }

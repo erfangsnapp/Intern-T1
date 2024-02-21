@@ -88,7 +88,7 @@
             <button type="submit">Logout</button>
         </form>
     <?php
-    if($is_admin === true){
+    if($user->is_admin() === true){
         echo
           '<div class="menu">
               <h2 class="menu-group-heading">Admin Panel(Add/Remove Items from menu)</h2>

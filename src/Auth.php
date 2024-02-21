@@ -45,16 +45,19 @@ class Auth
         $payload = json_decode(base64_decode($payload), true);
         return $payload;
     }
-
+    static public function isAuthenticated()
+    {
+        if (!isset($_COOKIE['token']))
+            return false;
+        $token = $_COOKIE['token'];;
+        return self::validateToken($token);
+    }
     static public function getUser()
     {
-        if (!isset($_SERVER['HTTP_AUTHORIZATION']))
-            return NULL;
-        $token = $_SERVER['HTTP_AUTHORIZATION'];
-        if (!self::validateToken($token)) {
-            http_response_code(400);
-            exit();
+        if(!self::isAuthenticated()){
+            return NULL; 
         }
+        $token = $_COOKIE['token'];
         $payload = self::getPayload($token);
         $user = User::get($payload['username']);
         return $user;

@@ -8,8 +8,7 @@ class LogoutController extends Controller
 {
     public function index(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // session_unset();
-            // session_destroy(); 
+            setcookie('token', '', time() - 3600, '/', '', false, true);
             header('Location: /login');
             exit(); 
         }

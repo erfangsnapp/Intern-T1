@@ -8,16 +8,16 @@ use ErfanGooneh\T1\Auth;
 class HomeController extends Controller
 {
     public function index(){
+        if(!Auth::isAuthenticated()){
+            header('Location: /login');
+            die(); 
+        }
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
-            if(!isset($_SESSION['username'])){
-                header('Location: /login');
-            }
-            else
-                $this->render('home', ['foods'=>Food::all()]);
+            $this->render('home', ['foods'=>Food::all()]);
         }
         else if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $user = Auth::getUser(); 
-            if($user === NULL || $user->is_admin !== true){
+            if($user->is_admin !== true){
                 http_response_code(401);
                 die(); 
             }

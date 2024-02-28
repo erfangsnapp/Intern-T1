@@ -4,14 +4,14 @@ namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\Food;
 use ErfanGooneh\T1\Auth;
+use ErfanGooneh\T1\Permission
 
 class HomeController extends Controller
 {
     public function index(){
-        if(!Auth::isAuthenticated()){
-            header('Location: /login');
-            die(); 
-        }
+        
+        Permission::onlyAuthenticated();
+        
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
             $this->render('home', ['foods'=>Food::all()]);
         }

@@ -5,9 +5,9 @@ use ErfanGooneh\T1\Models\User;
 use ErfanGooneh\T1\Models\Food;
 use ErfanGooneh\T1\Auth;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
-    public function index(){
+    public function login(){
         if($_SERVER['REQUEST_METHOD'] === 'GET'){
             $this->render('login') ;
         }
@@ -27,6 +27,16 @@ class LoginController extends Controller
                 header('Location: /');
                 exit(); 
             }
+        }
+    }
+    public function logout(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            setcookie('token', '', time() - 3600, '/', '', false, true);
+            header('Location: /login');
+            exit(); 
+        }
+        else{
+            http_response_code(400);
         }
     }
 }

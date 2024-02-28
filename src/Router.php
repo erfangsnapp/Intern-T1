@@ -5,7 +5,6 @@ namespace ErfanGooneh\T1 ;
 class Router
 {
     protected $routes = [];
-
     public function setRoute($route, $controller, $action)
     {
         $this->routes[$route] = ['controller'=>$controller, 'action'=>$action];
@@ -14,13 +13,13 @@ class Router
     public function run()
     {
         $uri = strtok($_SERVER['REQUEST_URI'], '?') ; 
-        if(array_key_exists($uri, $this->routes)) {
-            $controller = new $this->routes[$uri]['controller']() ;
-            $action =  $this->routes[$uri]['action'];
-            $controller->$action();
+        if(!array_key_exists($uri, $this->routes)) {
+            include('Views/404.php'); 
+            set_status_header(404);
+            die(); 
         }
-        else{
-            include("Views/404.php");
-        }
+        $controller = new $this->routes[$uri]['controller']() ;
+        $action =  $this->routes[$uri]['action'];
+        $controller->$action();
     }
 }

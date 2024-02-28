@@ -4,7 +4,7 @@ namespace ErfanGooneh\T1\Controllers;
 use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\Food;
 use ErfanGooneh\T1\Auth;
-use ErfanGooneh\T1\Permission
+use ErfanGooneh\T1\Permission;
 
 class HomeController extends Controller
 {

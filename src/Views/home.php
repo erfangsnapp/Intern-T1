@@ -93,17 +93,17 @@
           '<div class="menu">
               <h2 class="menu-group-heading">Admin Panel(Add/Remove Items from menu)</h2>
               <div class="menu-group">' ; 
-                      foreach ($foods as $_ => $food){
+                      foreach ($foods as $food){
                           echo '<div class="menu-item">
                     <img
-                      src="'.$food['picture'].'"
+                      src="'.$food->read('picture').'"
                       class="menu-item-img"
                     />
                     <div class="menu-item-text">
                       <h3 class="menu-item-heading">
-                        <span class="menu-item-name">'.$food['name'].'</span>
-                        <button onclick="addItem('."'".$food['name']."'".')">'.($food['is_in_menu'] ? 'Remove' : 'Add').'</button>
-                        <span class="menu-item-price">'.$food['price'].'T</span>
+                        <span class="menu-item-name">'.$food->read('name').'</span>
+                        <button onclick="addItem('."'".$food->read('name')."'".')">'.($food->read('is_in_menu') ? 'Remove' : 'Add').'</button>
+                        <span class="menu-item-price">'.$food->read('price').'T</span>
                       </h3>
                     </div>
                   </div>';
@@ -119,17 +119,17 @@
       <h2 class="menu-group-heading">SnappFood! Menu</h2>
       <div class="menu-group">
         <?php
-            foreach ($foods as $_ => $food){
-                if($food["is_in_menu"])
+            foreach ($foods as  $food){
+                if($food->read('is_in_menu'))
                 echo '<div class="menu-item">
           <img
-            src="'.$food['picture'].'"
+            src="'.$food->read('picture').'"
             class="menu-item-img"
           />
           <div class="menu-item-text">
             <h3 class="menu-item-heading">
-              <span class="menu-item-name">'.$food['name'].'</span>
-              <span class="menu-item-price">'.$food['price'].'T</span>
+              <span class="menu-item-name">'.$food->read('name').'</span>
+              <span class="menu-item-price">'.$food->read('price').'T</span>
             </h3>
           </div>
         </div>';

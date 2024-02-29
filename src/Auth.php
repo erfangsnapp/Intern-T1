@@ -59,7 +59,8 @@ class Auth
         }
         $token = $_COOKIE['token'];
         $payload = self::getPayload($token);
-        $user = User::get($payload['username']);
+        $username = $payload['username'];
+        $user = User::get(['username'=>$username]);
         return $user;
     }
 }

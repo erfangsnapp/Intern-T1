@@ -1,37 +1,67 @@
 <?php
+
 namespace ErfanGooneh\T1;
 
+use ErfanGooneh\T1\ORM\JsonDB;
+
 class Model{ 
-    protected $UID;
+    public $id;
+    static protected $db = 'JsonDB';
     private static function get_model_name(){
         $str = get_called_class();
         return substr($str, strrpos($str, '\\') + 1);
     }
-    public static function db_path(){
-        return __DIR__ . "/db/" . self::get_model_name() . ".json";
-    }
     public static function all(){
-        $f = file_get_contents(self::db_path());
-        $result = json_decode($f, true);
-        return $result;       
+        $data = self::{self::$db}()->all();
+        $result = [];
+        foreach ($data as $object){
+            $entry = new static(); 
+            $entry->loadData($object);
+            $result[] = $entry;
+        }
+        return $result; 
     }
-    public static function get($UID){
-        $all = self::all();
-        if(!isset($all[$UID]))return NULL;
-        $object = $all[$UID];
-        unset($object["UID"]);
-        return new static(...$object);
+    public static function getById($id){
+        $data = self::{self::$db}()->getById($id);
+        $entry = new static(); 
+        $entry->loadData($data); 
+        return $entry; 
+    }
+    public static function get($arr, $multiple_result=false){
+        $data = self::{self::$db}()->get($arr, $multiple_result);
+        if(!$multiple_result){
+            $entry = new static(); 
+            $entry->loadData($data); 
+            return $entry;
+        }
+        $result = []; 
+        foreach ($data as $object){
+            $entry = new static(); 
+            $entry->loadData($object);
+            $result[] = $entry;
+        }
+        return $result; 
+    }
+    public function read($key){
+        return $this->$key;
     }
     public function save(){
-        $objects = self::all();
-        $result = [];
-        $props = get_object_vars($this);
-        foreach ($props as $key => $value) {
-            $result += [$key => $value];
-        }
-        $objects[$this->UID] = $result ; 
-        $f = fopen(self::db_path(), "w");
-        fwrite($f, json_encode($objects));
+        self::{self::$db}()->save($this->ExportData());
     }
-
+    public function loadData(array $data){
+        foreach ($data as $key => $value) {
+            if(property_exists($this, $key))
+                $this->$key = $value;
+        }
+    } 
+    public function ExportData(){
+        return get_object_vars($this);
+    }
+    public static function JsonDB(){
+        return new JsonDB(
+                [
+                'table'=>self::get_model_name()
+                ]
+            );
+    }
 }

@@ -1,1 +1,1 @@
-{"admin":{"UID":"admin","username":"admin","password":"$2y$10$EhoDLF9sDwpvkD4T5Hr2KexYr8yfax3I6.c5mPUbcF4A6JQSpmcxO","is_admin":true},"simple":{"UID":"simple","username":"simple","password":"$2y$10$2mxJxaBEKTQRGRWhO2hqQewb0Xj3lFPUBf9uXlGotLHUk86MoLcg.","is_admin":false}}
+[{"id":0,"username":"admin","password":"$2y$10$EhoDLF9sDwpvkD4T5Hr2KexYr8yfax3I6.c5mPUbcF4A6JQSpmcxO","is_admin":true},{"id":1,"username":"simple","password":"$2y$10$2mxJxaBEKTQRGRWhO2hqQewb0Xj3lFPUBf9uXlGotLHUk86MoLcg.","is_admin":false}]

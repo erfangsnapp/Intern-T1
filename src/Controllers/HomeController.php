@@ -26,13 +26,13 @@ class HomeController extends Controller
                 http_response_code(400);
                 die(); 
             }
-            $instance = Food::get($name);
+            $instance = Food::get(['name'=>$name]);
             if($instance === NULL)
                 http_response_code(400);
-            else if($instance->is_in_menu === true)
-                $instance->set_out_menu();
-            else
-                $instance->set_in_menu();
+            else{
+                $instance->swapMenu(); 
+                $instance->save(); 
+            }
         } 
 
     }

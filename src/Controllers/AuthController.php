@@ -22,7 +22,10 @@ class AuthController extends Controller
                 $this->render('login', ['error' => 'Invalid username or password']);
             }
             else{
-                $token = Auth::generateToken(['username'=>$username]);
+                
+                $token = Auth::generateToken([
+                                             'username'=>$status->read('username'),                                                   'is_admin'=>$status->read('is_admin')
+                                             ]);
                 setcookie('token', $token, time() + 3600 * 24, '/', '', false, true);
                 header('Location: /');
                 exit(); 

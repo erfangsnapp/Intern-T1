@@ -10,11 +10,7 @@ class Permission
         if(!Auth::isAuthenticated()){
             return false; 
         }
-        $user = Auth::getUser();
-        if($user->role == 'admin'){
-            return true;
-        }
-        return false;
+        return self::getPayload($_COOKIE['token'])['is_admin']; 
     }
     static public function onlyAuthenticated(){
         if(!Auth::isAuthenticated()){

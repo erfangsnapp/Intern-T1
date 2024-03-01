@@ -9,6 +9,11 @@ class Model{
     protected $id;
 
     public static $fieldRules;
+
+    public function __construct($data = []){
+        if($data != [])
+            $this->insertData($data, static::$fieldRules); 
+    }
     
     private static function get_model_name(){
         $str = get_called_class();
@@ -51,17 +56,30 @@ class Model{
     public function save(){
         Application::$app->db->save(self::get_model_name(), $this->exportData());
     }
+    public function create(){
+        Application::$app->db->create(self::get_model_name(), $this->exportData());
+    }
     public function loadData(array $data, $rules){
         foreach ($data as $key => $value) {
-            if(property_exists($this, $key)){
-                if($key != 'id'){
-                    $field = new Field($rules[$key], $value, self::get_model_name(), $key);
-                    $field->validate();
-                }
-                $this->$key = $value;
+            if($key != 'id'){
+                $field = new Field($rules[$key], $value, self::get_model_name(), $key);
+                $field->validate();
             }
+            $this->$key = $value;
         }
-    } 
+    }
+    public function insertData(array $data, $rules){
+        foreach ($data as $key => $value) {
+            if($key != 'id'){
+                $field = new Field($rules[$key], $value, self::get_model_name(), $key);
+                $field->validate();
+            }
+            if($rules[$key]['type'] == 'password')
+                $this->$key = password_hash($value, PASSWORD_DEFAULT);
+            else
+                $this->$key = $value;
+        }
+    }
     public function exportData(){
         return get_object_vars($this);
     }

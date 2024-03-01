@@ -14,7 +14,6 @@ class Field{
     private int $min_length=0; 
     private $min;
     private $max;
-    private $default;
     private bool $required=false;
     private bool $unique=false;
 
@@ -26,11 +25,11 @@ class Field{
         foreach ($config as $key => $value) {
             $this->$key = $value;
         }
-        if($this->default && $this->data === NULL)
-            $this->data = $this->default;
     }
     public function validate(){
-        if($this->required && $this->data === NULL)
+        if($this->required)
+            var_dump($this->data); 
+        if($this->required && $this->data == NULL)
             throw new \Exception("Field {$this->name} is required");
         if($this->type == 'password'){
             if(strlen($this->data) < $this->min_length)

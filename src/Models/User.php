@@ -10,10 +10,11 @@ class User extends Model
     protected bool $is_admin=false; 
 
     public static $fieldRules = [
-       'username' => ['type'=>'string', 'max_length' => 50],
-       'password' => ['type'=>'password'],
+       'username' => ['type'=>'string', 'max_length' => 50, 'required'=>true],
+       'password' => ['type'=>'password', 'required'=> true],
        'is_admin' => ['type'=>'bool']
     ];
+
     
     public function is_admin()
     {
@@ -29,4 +30,5 @@ class User extends Model
         if(!password_verify($password, $user->password))return false;
         return $user;
     }
+
 }

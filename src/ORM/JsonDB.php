@@ -35,7 +35,7 @@ class JsonDB extends Database{
         $all = self::all($table); 
         $id_number = (end($all)['id']+1); 
         $data['id'] = $id_number; 
-        $this->save($data); 
+        $this->save($table, $data); 
     }
     public function save($table, $data){
         $objects = self::all($table);

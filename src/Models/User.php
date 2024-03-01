@@ -5,9 +5,16 @@ use ErfanGooneh\T1\Model;
 
 class User extends Model
 {
-    protected $username;
-    protected $password;
-    protected $is_admin=false; 
+    protected string $username;
+    protected string $password;
+    protected bool $is_admin=false; 
+
+    public static $fieldRules = [
+       'username' => ['type'=>'string', 'max_length' => 50],
+       'password' => ['type'=>'password'],
+       'is_admin' => ['type'=>'bool']
+    ];
+    
     public function is_admin()
     {
         return ($this->is_admin === true); 

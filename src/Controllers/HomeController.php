@@ -5,6 +5,7 @@ use ErfanGooneh\T1\Controller;
 use ErfanGooneh\T1\Models\Food;
 use ErfanGooneh\T1\Auth;
 use ErfanGooneh\T1\Permission;
+use ErfanGooneh\T1\Field; 
 
 class HomeController extends Controller
 {
@@ -20,12 +21,15 @@ class HomeController extends Controller
             Permission::onlyAdmin(); 
             
             $user = Auth::getUser(); 
-            
-            $name = Food::validate_name($_POST['name']) ;
-            if($name === NULL){
+            try{
+                $name = $_POST['name'];
+                $field = new Field(Food::$fieldRules['name'], $name, 'Food', 'name'); 
+                $field->validate(); 
+            } catch(Exception $e){
                 http_response_code(400);
                 die(); 
             }
+            
             $instance = Food::get(['name'=>$name]);
             if($instance === NULL)
                 http_response_code(400);

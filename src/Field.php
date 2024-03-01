@@ -1,0 +1,58 @@
+<?php
+
+namespace ErfanGooneh\T1; 
+
+use ErfanGooneh\T1\Application; 
+
+class Field{
+    private $name; 
+    private $data;
+    private $model; 
+    private array $config;
+    private string $type;
+    private int $max_length=255;
+    private int $min_length=0; 
+    private $min;
+    private $max;
+    private $default;
+    private bool $required=false;
+    private bool $unique=false;
+
+    public function __construct($config, $data, $model, $name){
+        $this->config = $config;
+        $this->data = $data;
+        $this->model = $model;
+        $this->name = $name; 
+        foreach ($config as $key => $value) {
+            $this->$key = $value;
+        }
+        if($this->default && $this->data === NULL)
+            $this->data = $this->default;
+    }
+    public function inserting_validate(){
+        if($this->unique){
+            $entry = Application::$app->db->get($this->model, $this->data);
+            if($entry != NULL)
+                throw new \Exception("This field is already in the database");
+        }
+
+        $this->validate(); 
+    }
+    public function validate(){
+        if($this->required && $this->data === NULL)
+            throw new \Exception("Field {$this->name} is required");
+            
+        if($this->type == 'string'){
+            if(strlen($this->data) > $this->max_length)
+                throw new \Exception("Field {$this->name} is too long");
+            if(strlen($this->data) < $this->min_length)
+                throw new \Exception("Field {$this->name} is too short");
+        }
+        if($this->type == 'int' || $this->type == 'float'){
+            if($this->min && $this->data < $this->min)
+                throw new \Exception("Field {$this->name} is too small");
+            if($this->max && $this->data > $this->max)
+                throw new \Exception("Field {$this->name} is too big");
+        }
+    }
+}

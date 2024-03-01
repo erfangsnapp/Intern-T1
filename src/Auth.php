@@ -52,6 +52,12 @@ class Auth
         $token = $_COOKIE['token'];;
         return self::validateToken($token);
     }
+    static public function isAdmin(){
+        if(!self::isAuthenticated()){
+            return false; 
+        }
+        return self::getPayload($_COOKIE['token'])['is_admin']; 
+    }
     static public function getUser()
     {
         if(!self::isAuthenticated()){

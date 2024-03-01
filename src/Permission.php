@@ -6,11 +6,11 @@ use ErfanGooneh\T1\Auth;
 
 class Permission
 {
-    static public function isAdmin(){
-        if(!Auth::isAuthenticated()){
-            return false; 
+    static public function onlyAdmin(){
+        if(!Auth::isAdmin()){
+            http_response_code(401);
+            die(); 
         }
-        return self::getPayload($_COOKIE['token'])['is_admin']; 
     }
     static public function onlyAuthenticated(){
         if(!Auth::isAuthenticated()){

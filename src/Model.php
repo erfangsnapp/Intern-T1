@@ -62,15 +62,6 @@ class Model{
             }
         }
     } 
-    public function createData(array $data, $rules){
-        foreach ($data as $key => $value) {
-            if(property_exists($this, $key)){
-                $field = new Field($rules[$key], $value, self::get_model_name(), $key);
-                $field->inserting_validate();
-                $this->$key = $value;
-            }
-        }
-    }
     public function exportData(){
         return get_object_vars($this);
     }

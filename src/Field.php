@@ -29,15 +29,6 @@ class Field{
         if($this->default && $this->data === NULL)
             $this->data = $this->default;
     }
-    public function inserting_validate(){
-        if($this->unique){
-            $entry = Application::$app->db->get($this->model, $this->data);
-            if($entry != NULL)
-                throw new \Exception("This field is already in the database");
-        }
-
-        $this->validate(); 
-    }
     public function validate(){
         if($this->required && $this->data === NULL)
             throw new \Exception("Field {$this->name} is required");

@@ -5,24 +5,22 @@ namespace ErfanGooneh\T1\ORM;
 use ErfanGooneh\T1\ORM\Database;
 
 class JsonDB extends Database{
-    public function __construct($config){
-        parent::__construct($config['table']);
+
+    public static function db_path($table){
+        return __DIR__ . "/../db/" . $table . ".json";
     }
-    public function db_path(){
-        return __DIR__ . "/../db/" . $this->table . ".json";
-    }
-    public function all(){
-        $f = file_get_contents($this->db_path());
+    public function all($table){
+        $f = file_get_contents(self::db_path($table));
         $result = json_decode($f, true);
         return $result;       
     }
-    public function getById($id){
-        $all = self::all();
+    public function getById($table, $id){
+        $all = self::all($table);
         if(!isset($all[$id]))return NULL;
         return $all[$id];
     }
-    public function get($arr, $multiple_result=false){
-        $all = self::all(); 
+    public function get($table, $arr, $multiple_result=false){
+        $all = self::all($table); 
         foreach ($all as $id => $entry){
             foreach ($arr as $key => $value){
                 if($entry[$key] != $value)
@@ -33,16 +31,16 @@ class JsonDB extends Database{
             return $all; 
         return reset($all); 
     }
-    public function create($data){
-        $all = self::all(); 
+    public function create($table, $data){
+        $all = self::all($table); 
         $id_number = (end($all)['id']+1); 
         $data['id'] = $id_number; 
         $this->save($data); 
     }
-    public function save($data){
-        $objects = self::all();
+    public function save($table, $data){
+        $objects = self::all($table);
         $objects[$data['id']] = $data ; 
-        $f = fopen($this->db_path(), "w");
+        $f = fopen(self::db_path($table), "w");
         fwrite($f, json_encode($objects));
     }
 }

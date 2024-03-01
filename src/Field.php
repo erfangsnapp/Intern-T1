@@ -41,7 +41,10 @@ class Field{
     public function validate(){
         if($this->required && $this->data === NULL)
             throw new \Exception("Field {$this->name} is required");
-            
+        if($this->type == 'password'){
+            if(strlen($this->data) < $this->min_length)
+                throw new \Exception("Password {$this->name} is too short");
+        }
         if($this->type == 'string'){
             if(strlen($this->data) > $this->max_length)
                 throw new \Exception("Field {$this->name} is too long");

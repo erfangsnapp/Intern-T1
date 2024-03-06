@@ -31,12 +31,18 @@ class Model{
     }
     public static function getById($id){
         $data = Application::$app->db->getById(self::get_model_name(), $id);
+        if(empty($data)){
+            return null;
+        }
         $entry = new static(); 
         $entry->loadData($data, static::$fieldRules); 
         return $entry; 
     }
     public static function get($arr, $multiple_result=false){
         $data = Application::$app->db->get(self::get_model_name(), $arr, $multiple_result);
+        if(empty($data)){
+            return null;
+        }
         if(!$multiple_result){
             $entry = new static(); 
             $entry->loadData($data, static::$fieldRules); 
@@ -59,7 +65,7 @@ class Model{
     public function create(){
         Application::$app->db->create(self::get_model_name(), $this->exportData());
     }
-    public function loadData(array $data, $rules){
+    public function loadData($data, $rules){
         foreach ($data as $key => $value) {
             if($key != 'id'){
                 $field = new Field($rules[$key], $value, self::get_model_name(), $key);
@@ -68,7 +74,7 @@ class Model{
             $this->$key = $value;
         }
     }
-    public function insertData(array $data, $rules){
+    public function insertData($data, $rules){
         foreach ($data as $key => $value) {
             if($key != 'id'){
                 $field = new Field($rules[$key], $value, self::get_model_name(), $key);

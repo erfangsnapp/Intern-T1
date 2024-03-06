@@ -31,6 +31,9 @@ class MySQL extends Database{
         unset($data['id']);
         $updates = [];
         foreach ($data as $key => $value) {
+            if (is_bool($value)) {
+                $value = $value ? 1 : 0;
+            }
             $updates[] = "$key = '$value'";
         }
         $set = implode(', ', $updates);

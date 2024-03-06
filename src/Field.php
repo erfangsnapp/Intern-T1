@@ -27,8 +27,6 @@ class Field{
         }
     }
     public function validate(){
-        if($this->required)
-            var_dump($this->data); 
         if($this->required && $this->data == NULL)
             throw new \Exception("Field {$this->name} is required");
         if($this->type == 'password'){

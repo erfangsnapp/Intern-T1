@@ -1,5 +1,5 @@
-# Use the official PHP 8.2 image
-FROM php:8.2
+# Use the official PHP 8.1 image
+FROM php:8.1
 
 # Set the working directory inside the container
 WORKDIR /var/www/html
@@ -19,6 +19,8 @@ COPY public/ ./public
 
 # Expose port 80 for web traffic
 EXPOSE 80
+
+RUN docker-php-ext-install mysqli
 
 # Start the PHP built-in web server
 CMD ["php", "-S", "0.0.0.0:80", "-t", "public/"]

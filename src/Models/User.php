@@ -8,14 +8,13 @@ class User extends Model
     protected string $username;
     protected string $password;
     protected bool $is_admin=false; 
-
     public static $fieldRules = [
        'username' => ['type'=>'string', 'max_length' => 50, 'required'=>true],
        'password' => ['type'=>'password', 'required'=> true],
        'is_admin' => ['type'=>'bool']
     ];
 
-    
+
     public function is_admin()
     {
         return ($this->is_admin === true); 

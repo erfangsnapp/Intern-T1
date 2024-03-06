@@ -1,39 +1,40 @@
-      version: '3.8'
+version: '3.8'
 
-      services:
-        php:
-          build:
-            context: .
-            dockerfile: Dockerfile
-          ports:
-            - "8080:80"
-          volumes:
-            - ./src:/var/www/html/src
-            - ./public:/var/www/html/public
-          networks:
-            - intern_net
-          depends_on:
-            - db
-        phpmyadmin:
-          image: 'phpmyadmin:latest'
-          networks:
-            - intern_net
-          environment:
-            MYSQL_ROOT_PASSWORD: adminadmin123
-          ports:
-            - ":8081:80"
-          depends_on:
-            - db
-        db:
-          image: 'mysql:latest'
-          networks:
-            - intern_net
-          volumes:
-            - ./data/db:/var/lib/mysql
-          environment:
-            MYSQL_ROOT_PASSWORD: adminadmin123
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html/src
+      - ./public:/var/www/html/public
+    networks:
+      - intern_net
+    depends_on:
+      - db
+  phpmyadmin:
+    image: 'phpmyadmin:latest'
+    networks:
+      - intern_net
+    environment:
+      MYSQL_ROOT_PASSWORD: adminadmin123
+    ports:
+      - ":8081:80"
+    depends_on:
+      - db
+  db:
+    image: 'mysql:latest'
+    networks:
+      - intern_net
+    volumes:
+      - ./data/db:/var/lib/mysql
+      - ./app.sql:/docker-entrypoint-initdb.d/app.sql 
+    environment:
+      MYSQL_ROOT_PASSWORD: adminadmin123
 
 
-      networks:
-        intern_net:
-          driver: bridge
+networks:
+  intern_net:
+    driver: none

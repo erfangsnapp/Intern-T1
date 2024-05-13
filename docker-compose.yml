@@ -37,4 +37,4 @@ services:
 
 networks:
   intern_net:
-    driver: none
+    driver: bridge
